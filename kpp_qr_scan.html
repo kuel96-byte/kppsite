@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка QR</title>
+    <style>
+        /* Добавляем стили для исправления зеркального отображения */
+        #camera-stream {
+            transform: scaleX(-1); /* Отражаем по горизонтали */
+            width: 1900px;
+            height: 740px;
+            border-radius: 8px; /* Добавим немного скругления для красоты */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* И небольшую тень */
+        }
+        
+        /* Стили для кнопки */
+        #start-camera {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 20px 0;
+            background-color: #a80404;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #start-camera:hover {
+            background-color: #000000;
+        }
+        
+        #start-camera:disabled {
+            background-color: #830202;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR-scanner </h1>
+    <!-- Элемент для отображения видео -->
+    <video id="camera-stream" autoplay playsinline></video>
+    <br>
+    <!-- Кнопка для запуска камеры -->
+    <button id="start-camera">Включить камеру</button>
+
+    <script>
+        const video = document.getElementById('camera-stream');
+        const startButton = document.getElementById('start-camera');
+
+        async function enableCamera() {
+            try {
+                // Запрашиваем поток с видео
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true, 
+                    audio: false 
+                });
+                
+                // Привязываем поток к видеоэлементу
+                video.srcObject = stream;
+                
+                // Делаем кнопку неактивной после успешного запуска
+                startButton.disabled = true; 
+                startButton.textContent = 'Камера включена';
+
+            } catch (error) {
+                console.error('Ошибка доступа к камере:', error);
+                alert('Не удалось получить доступ к камере. Пожалуйста, проверьте разрешения и убедитесь, что камера не используется другим приложением.');
+            }
+        }
+
+        startButton.addEventListener('click', enableCamera);
+    </script>
+</body>
+</html>
