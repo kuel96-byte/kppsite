@@ -1,0 +1,29 @@
+/* Добавляем стили для исправления зеркального отображения */
+#camera-stream {
+    transform: scaleX(-1); /* Отражаем по горизонтали */
+    width: 1080px;
+    height: 360px;
+    border-radius: 8px; /* Добавим немного скругления для красоты */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* И небольшую тень */
+}
+
+/* Стили для кнопки */
+#start-camera {
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 20px 0;
+    background-color: #a80404;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#start-camera:hover {
+    background-color: #000000;
+}
+
+#start-camera:disabled {
+    background-color: #830202;
+    cursor: not-allowed;
+}
