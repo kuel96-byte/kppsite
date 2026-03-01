@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка QR</title>
+    <!-- Подключаем внешний CSS файл -->
+    <link rel="stylesheet" href="kpp-qr-scan.css">
+</head>
+<body>
+    <h1>QR-scanner</h1>
+    <!-- Элемент для отображения видео -->
+    <video id="camera-stream" autoplay playsinline></video>
+    <br>
+    <!-- Кнопка для запуска камеры -->
+    <button id="start-camera">Включить камеру</button>
+
+    <!-- JavaScript код можно оставить здесь или вынести в отдельный файл -->
+    <script>
+        const video = document.getElementById('camera-stream');
+        const startButton = document.getElementById('start-camera');
+
+        async function enableCamera() {
+            try {
+                // Запрашиваем поток с видео
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true, 
+                    audio: false 
+                });
+                
+                // Привязываем поток к видеоэлементу
+                video.srcObject = stream;
+                
+                // Делаем кнопку неактивной после успешного запуска
+                startButton.disabled = true; 
+                startButton.textContent = 'Камера включена';
+
+            } catch (error) {
+                console.error('Ошибка доступа к камере:', error);
+                alert('Не удалось получить доступ к камере. Пожалуйста, проверьте разрешения и убедитесь, что камера не используется другим приложением.');
+            }
+        }
+
+        startButton.addEventListener('click', enableCamera);
+    </script>
+</body>
+</html>
