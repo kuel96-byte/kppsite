@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КПП - Контроль доступа</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚪 Контрольно-пропускной пункт</h1>
+            <nav>
+                <a href="/" class="active">Сканирование</a>
+                <a href="/logs">Журнал доступа</a>
+                <a href="/admin">Админка</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="scanner-section">
+                <h2>Сканирование QR-кода</h2>
+
+                <!-- Видео с камеры -->
+                <div class="video-container">
+                    <video id="preview" autoplay playsinline></video>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                </div>
+
+                <!-- Результат сканирования -->
+                <div id="result" class="result-card hidden">
+                    <h3>Результат проверки</h3>
+                    <div id="result-content"></div>
+                </div>
+
+                <!-- Инструкция -->
+                <div class="instruction">
+                    <p>📷 Поднесите QR-код к камере для сканирования</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Подключаем JS библиотеки -->
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="{% static 'js/scanner.js' %}"></script>
+</body>
+</html>

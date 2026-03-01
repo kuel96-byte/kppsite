@@ -1,0 +1,208 @@
+/* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Шапка */
+header {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #666;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    background: #f0f0f0;
+}
+
+nav a.active {
+    background: #667eea;
+    color: white;
+}
+
+/* Секция сканера */
+.scanner-section {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.scanner-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Результат сканирования */
+.result-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.result-card.granted {
+    background: #d4edda;
+    border: 2px solid #28a745;
+}
+
+.result-card.denied {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+}
+
+.result-card.expired {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+}
+
+.result-card.hidden {
+    display: none;
+}
+
+.result-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pass-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pass-info h4 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.pass-info p {
+    margin: 3px 0;
+    color: #666;
+}
+
+/* Инструкция */
+.instruction {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Таблица логов */
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.logs-table th,
+.logs-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.logs-table th {
+    background: #667eea;
+    color: white;
+}
+
+.logs-table tr:hover {
+    background: #f8f9fa;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.status-granted {
+    background: #d4edda;
+    color: #28a745;
+}
+
+.status-denied {
+    background: #f8d7da;
+    color: #dc3545;
+}
+
+.status-expired {
+    background: #fff3cd;
+    color: #ffc107;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    .result-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logs-table {
+        font-size: 0.9em;
+    }
+}
