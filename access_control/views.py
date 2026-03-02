@@ -61,12 +61,6 @@ def scan_qr(request):
     return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
 
 
-def logs(request):
-    """Страница с логами доступа"""
-    access_logs = AccessLog.objects.all().order_by('-access_time')[:100]
-    return render(request, 'logs.html', {'logs': access_logs})
-
-
 def generate_qr(request, pass_id):
     """Генерация QR-кода для пропуска (опционально)"""
     from django.http import HttpResponse
@@ -88,14 +82,3 @@ def generate_qr(request, pass_id):
     buffer.seek(0)
 
     return HttpResponse(buffer, content_type='image/png')
-
-def access_logs_view(request):
-    # Получаем все логи, сортируем от новых к старым
-    logs = AccessLog.objects.select_related('pass_data').order_by('-access_time')
-
-    # Пагинация (по 50 записей на страницу)
-    paginator = Paginator(logs, 50)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'logs.html', {'page_obj': page_obj})

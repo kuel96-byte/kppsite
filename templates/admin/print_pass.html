@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пропуск - {{ pass_obj.full_name }}</title>
+    <style>
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .pass-card {
+            width: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Градиентная полоса сверху */
+        .pass-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 20px;
+        }
+
+        .pass-content {
+            padding: 25px;
+        }
+
+        .pass-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .photo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pass-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .no-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 4px solid #667eea;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .info-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 40%;
+        }
+
+        .info-table td:last-child {
+            color: #333;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .qr-image {
+            max-width: 180px;
+            max-height: 180px;
+            margin: 0 auto;
+            display: block;
+            border: 2px solid #ddd;
+            padding: 5px;
+            background: white;
+        }
+
+        .qr-data {
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            color: #666;
+            word-break: break-all;
+        }
+
+        .pass-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #ddd;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .valid-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .valid-badge.valid {
+            background: #d4edda;
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .valid-badge.invalid {
+            background: #f8d7da;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .print-button {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .print-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.1;
+            font-size: 50px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .pass-type {
+            text-align: center;
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="pass-card">
+        <div class="pass-header"></div>
+        <div class="pass-content">
+            <div class="pass-title">
+                ПРОПУСК
+            </div>
+
+            <div class="pass-type">
+                {{ pass_obj.get_pass_type_display|upper }}
+            </div>
+
+            <div class="photo-container">
+                {% if pass_obj.photo %}
+                    <img src="{{ pass_obj.photo.url }}" class="pass-photo" alt="Фото">
+                {% else %}
+                    <div class="no-photo">
+                        📷 Нет фото
+                    </div>
+                {% endif %}
+            </div>
+
+            <table class="info-table">
+                <tr>
+                    <td>ФИО:</td>
+                    <td><strong>{{ pass_obj.full_name }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Организация:</td>
+                    <td>{{ pass_obj.organization|default:"—" }}</td>
+                </tr>
+                <tr>
+                    <td>Действует с:</td>
+                    <td>{{ pass_obj.valid_from|date:"d.m.Y" }}</td>
+                </tr>
+                <tr>
+                    <td>Действует до:</td>
+                    <td>{{ pass_obj.valid_until|date:"d.m.Y" }}</td>
+                </tr>
+            </table>
+
+            <div class="qr-container">
+                {% if pass_obj.qr_code_image %}
+                    <img src="{{ pass_obj.qr_code_image.url }}" class="qr-image" alt="QR-код">
+                    <div class="qr-data">
+                        {{ pass_obj.qr_code_data }}
+                    </div>
+                {% else %}
+                    <div class="qr-image" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        🔳 QR не сгенерирован
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="text-align: center;">
+                {% if pass_obj.is_valid %}
+                    <div class="valid-badge valid">
+                        ✅ ДЕЙСТВИТЕЛЕН
+                    </div>
+                {% else %}
+                    <div class="valid-badge invalid">
+                        ❌ НЕДЕЙСТВИТЕЛЕН
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="pass-footer">
+                Контрольно-пропускной пункт<br>
+                При предъявлении вместе с документом, удостоверяющим личность
+            </div>
+        </div>
+        <div class="watermark">КПП</div>
+    </div>
+
+    <div class="print-button no-print" style="margin-left: 20px;">
+        <button onclick="window.print()" class="print-btn">
+            🖨️ Распечатать
+        </button>
+        <br><br>
+        <button onclick="window.close()" class="print-btn" style="background: #6c757d;">
+            ✖ Закрыть
+        </button>
+    </div>
+
+    <script>
+        // Автоматически открыть диалог печати (опционально)
+        // window.onload = function() { window.print(); }
+    </script>
+</body>
+</html>

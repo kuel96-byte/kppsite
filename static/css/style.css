@@ -1,4 +1,4 @@
-/* Основные стили */
+/* ===== ОСНОВНЫЕ СТИЛИ ===== */
 * {
     margin: 0;
     padding: 0;
@@ -6,47 +6,52 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    color: #333;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
 }
 
-/* Шапка */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== ШАПКА ===== */
 header {
     background: white;
-    padding: 20px 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 25px;
 }
 
 header h1 {
     color: #667eea;
+    font-size: 28px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 nav {
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 nav a {
     text-decoration: none;
     color: #666;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.2s;
 }
 
 nav a:hover {
     background: #f0f0f0;
+    color: #333;
 }
 
 nav a.active {
@@ -54,155 +59,138 @@ nav a.active {
     color: white;
 }
 
-/* Секция сканера */
+/* ===== СЕКЦИЯ СКАНЕРА ===== */
 .scanner-section {
     background: white;
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .scanner-section h2 {
     color: #333;
-    margin-bottom: 20px;
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
-.video-container {
+/* ===== ВИДЕО ===== */
+#camera {
     width: 100%;
     max-width: 640px;
-    margin: 0 auto 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-video {
-    width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    background: #2d3748; /* Цвет фона пока камера не работает */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: scaleX(-1); /* Зеркальное отражение для удобства */
 }
 
-/* Результат сканирования */
-.result-card {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 10px;
+/* ===== КНОПКА ===== */
+#btnCamera {
+    display: block;
+    margin: 25px auto 15px;
+    padding: 14px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: #667eea;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(102, 126, 234, 0.4);
 }
 
-.result-card.granted {
-    background: #d4edda;
-    border: 2px solid #28a745;
+#btnCamera:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.5);
 }
 
-.result-card.denied {
-    background: #f8d7da;
-    border: 2px solid #dc3545;
+#btnCamera:disabled {
+    background: #48bb78;
+    cursor: default;
+    transform: none;
+    box-shadow: 0 4px 6px rgba(72, 187, 120, 0.4);
 }
 
-.result-card.expired {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
-}
-
-.result-card.hidden {
-    display: none;
-}
-
-.result-content {
+/* ===== СТАТУС И РЕЗУЛЬТАТ ===== */
+#result {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    min-height: 70px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
 }
 
-.pass-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.pass-info h4 {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-
-.pass-info p {
-    margin: 3px 0;
-    color: #666;
-}
-
-/* Инструкция */
-.instruction {
-    margin-top: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    color: #666;
-    font-size: 1.1em;
-}
-
-/* Таблица логов */
-.logs-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.logs-table th,
-.logs-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.logs-table th {
-    background: #667eea;
-    color: white;
-}
-
-.logs-table tr:hover {
-    background: #f8f9fa;
-}
-
-.status-badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: bold;
-}
-
-.status-granted {
+/* Стили для разных статусов */
+#result:contains('✅') {
     background: #d4edda;
-    color: #28a745;
+    border-color: #28a745;
+    color: #155724;
 }
 
-.status-denied {
+#result:contains('❌') {
     background: #f8d7da;
-    color: #dc3545;
+    border-color: #dc3545;
+    color: #721c24;
 }
 
-.status-expired {
-    background: #fff3cd;
-    color: #ffc107;
+/* ===== ИНСТРУКЦИЯ ===== */
+.instruction {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 5px solid #667eea;
+    color: #4a5568;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5em;
-    }
+.instruction p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-    nav {
-        flex-wrap: wrap;
-    }
+.instruction p:before {
+    content: "📷";
+    font-size: 24px;
+}
 
-    .result-content {
-        flex-direction: column;
-        text-align: center;
-    }
+/* ===== АНИМАЦИИ ===== */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
 
-    .logs-table {
-        font-size: 0.9em;
-    }
+#camera:not([srcObject]) {
+    animation: pulse 2s infinite;
+    background: #2d3748;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#camera:not([srcObject])::after {
+    content: "⏳ Ожидание камеры...";
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    left: 0;
 }
